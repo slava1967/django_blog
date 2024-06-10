@@ -1,0 +1,43 @@
+{% extends 'main/base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 card mb-4  mt-3 left  top">
+            <div class="card-body">
+                <h1>{% block title %} {{ object.title }} {% endblock title %}</h1>
+                <p class=" text-muted">{{ post.created_at|date:"d.m.Y" }}</p>
+                <p class="card-text ">{{ object.body | safe }}</p>
+            </div>
+            <p><small>Category: <a href="{% url 'category_detail' post.category.slug %}">{{ post.category }}</a></small>
+            </p>
+
+            <hr>
+
+            <h2 class="subtitle is-4">Комментарии:</h2>
+
+            {% for comment in post.comments.all %}
+
+            <article class="media box">
+                <div class="media-content">
+                    <strong>{{ comment.name }}</strong> <small>{{ comment.created_at|timesince }} ago</small><br>
+                    {{ comment.body }}
+                </div>
+            </article>
+            {% endfor %}
+
+            <form method="post" class="mb-6">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="field">
+                    <div class="control">
+                        <button class="button is-success">Отправить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% block sidebar %} {% include 'main/sidebar.html' %} {% endblock sidebar %}
+    </div>
+</div>
+
+{% endblock content %}

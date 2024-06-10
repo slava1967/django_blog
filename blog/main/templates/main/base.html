@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Изучаем Python и его фреймворки: Django</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- Bootstrap cdn -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/journal/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/flatly/bootstrap.min.css">
+
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/sketchy/bootstrap.min.css"> -->
+</head>
+
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="mainNav">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">🌐Daily Blog Posts🌐</a>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item text-black">
+                    <a class="nav-link text-black font-weight-bold" href="{% url 'home' %}">Главная</a>
+                </li>
+                <li class="nav-item text-black">
+                    <a class="nav-link text-black font-weight-bold" href="#">Python</a>
+                </li>
+                <li class="nav-item text-black">
+                    <a class="nav-link text-black font-weight-bold" href="#">Django</a>
+                </li>
+                <li class="nav-item text-black">
+                    <a class="nav-link text-black font-weight-bold" href="#">Контакты</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Выход</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Вход</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">Регистрация</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div>
+            <!--            <form method="get" action="{% url 'search' %}" role="search">-->
+            <!--                <div>-->
+            <!--                    <input name="query" type="text" placeholder="Поиск">-->
+            <!--                    <span class="icon is-left">-->
+            <!--                        <i class="fa fa-search"></i>-->
+            <!--                    </span>-->
+            <!--                </div>-->
+            <!--            </form>-->
+            <form class="d-flex" method="get" action="{% url 'search' %}" role="search">
+                <input class="form-control me-sm-2" type="search" placeholder="Поиск">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Искать</button>
+            </form>
+
+        </div>
+    </div>
+</nav>
+{% block content %}
+<!-- Content Goes here -->
+{% endblock content %}
+{% block sidebar %}
+{% include 'main/sidebar.html' %}
+{% endblock sidebar %}
+<!-- Footer -->
+<footer class="py-3 bg-grey">
+    <p class="m-0 text-dark text-center ">Copyright &copy; 2024. Изучаем Django </p>
+</footer>
+</body>
+
+</html>
